@@ -1,0 +1,70 @@
+@font-face {
+    font-family: "RSU";
+    src: url("../fonts/RSU_Regular.ttf");
+}      
+html,
+body,
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+.sassy-theme .esri-widget,
+.sassy-theme .esri-widget--button,
+.sassy-theme .esri-menu,
+.sassy-theme .esri-popup__main-container,
+.sassy-theme .esri-popup .esri-popup__pointer-direction,
+.sassy-theme .esri-popup .esri-popup__button,
+.sassy-theme .esri-button,
+.sassy-theme .esri-input,
+.sassy-theme .esri-layer-list__item,
+.sassy-theme .esri-time-slider__slider,
+.sassy-theme .esri-widget a {
+  background-color: #87AF4A;
+  color: #fff;
+}      
+h2 {
+font-weight: bold;
+}      
+#logoDiv {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+}     
+.esri-widget {
+  font-family: "sarabun", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+.esri-widget--button {
+  border-radius: 10px;
+}
+.esri-ui .esri-component {
+  border-radius: 10px;
+}
+.esri-popup__header-title {
+  font-family: "RSU", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  color: #fff;
+}
+.esri-icon-non-visible::before {
+  content: "\e610";
+}
+.esri-icon-visible::before {
+  content: "\e611";
+}
+.esri-layer-list__item-container {
+  padding: 0;
+}
+.esri-time-slider__time-extent-date {
+  display: none;
+}
+.esri-legend__layer-caption{
+  display: none;
+}
+.esri-layer-list__item-actions-menu{
+  display: none;
+}
+.invisible {
+  visibility: collapse;
+} 
