@@ -12,9 +12,9 @@ require([
     "esri/widgets/TimeSlider",
     "esri/widgets/Search",
     "esri/core/urlUtils",
-    "esri/core/watchUtils",
+    "esri/core/reactiveUtils",
     "esri/intl"
-  ], function (
+  ], (
     Map,
     MapView,
     FeatureLayer,
@@ -28,22 +28,22 @@ require([
     TimeSlider,
     Search,
     urlUtils,
-    watchUtils,
+    reactiveUtils,
     intl
-  ) {
+  ) => {
     intl.setLocale("th");
 
-    var urlGreenNews = "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/GreenNews/FeatureServer/0";
+    const urlGreenNews = "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/GreenNews/FeatureServer/0";
 
     // define a popup for News layer
-    var popupGreenNews = {
+    const popupGreenNews = {
       title: "<b>{TITLE}</b>",
       content:
         "<b>ประเภทข่าว: {CATEGORY} ({DATE})</b><br><br>{DETAIL}<br><br><img src={IMAGE}><br><br><a href={LINK} target='_blank'>อ่านข่าวเพิ่มเติม</a>"
     };
 
     // add layer
-    var GreenNewsLayer = new FeatureLayer({
+    const GreenNewsLayer = new FeatureLayer({
       url: urlGreenNews,
       title: "ข้อมูลข่าวแบบ Timeline",
       outFields: ["*"],
@@ -51,65 +51,65 @@ require([
       listMode: "hide",
       visible: false
     });
-    var Mining = new FeatureLayer({
+    const Mining = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/Mining/FeatureServer/0",
       title: "ประเภทข่าวที่ 11",
       popupTemplate: popupGreenNews
     });
-    var Pollution = new FeatureLayer({
+    const Pollution = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/Pollution_and_waste/FeatureServer/0",
       title: "ประเภทข่าวที่ 10",
       popupTemplate: popupGreenNews
     });
-    var Industrial = new FeatureLayer({
+    const Industrial = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/Industrial/FeatureServer/0",
       title: "ประเภทข่าวที่ 9",
       popupTemplate: popupGreenNews
     });
-    var Food = new FeatureLayer({
+    const Food = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/Food_and_Agriculture/FeatureServer/0",
       title: "ประเภทข่าวที่ 8",
       popupTemplate: popupGreenNews
     });
-    var Energy = new FeatureLayer({
+    const Energy = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/Energy/FeatureServer/0",
       title: "ประเภทข่าวที่ 7",
       popupTemplate: popupGreenNews
     });
-    var Right = new FeatureLayer({
+    const Right = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/Right/FeatureServer/0",
       title: "ประเภทข่าวที่ 6",
       popupTemplate: popupGreenNews
     });
-    var Urban = new FeatureLayer({
+    const Urban = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/Urban/FeatureServer/0",
       title: "ประเภทข่าวที่ 5",
       popupTemplate: popupGreenNews
     });
-    var Forest = new FeatureLayer({
+    const Forest = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/FOREST_AND_WILDIFE/FeatureServer/0",
       title: "ประเภทข่าวที่ 4",
       popupTemplate: popupGreenNews
     });
-    var Ocean = new FeatureLayer({
+    const Ocean = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/WATER_AND_OCEAN/FeatureServer/0",
       title: "ประเภทข่าวที่ 3",
       popupTemplate: popupGreenNews
     });
-    var Ecology = new FeatureLayer({
+    const Ecology = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/Ecology/FeatureServer/0",
       title: "ประเภทข่าวที่ 2",
       popupTemplate: popupGreenNews
     });
 
-    var Disaster = new FeatureLayer({
+    const Disaster = new FeatureLayer({
       url: "https://services5.arcgis.com/60ZyqBuk6DAAkHuh/ArcGIS/rest/services/DISASTER/FeatureServer/0",
       title: "ประเภทข่าวที่ 1",
       popupTemplate: popupGreenNews
     });
 
     // create group layer
-    var GreenNews = new GroupLayer({
+    const GreenNews = new GroupLayer({
       title: "เลือกทุกประเภทข่าว",
       visible: true,
       visibilityMode: "independent",
@@ -129,13 +129,13 @@ require([
     });
 
     // create the Map with an initial basemap
-    var map = new Map({
+    const map = new Map({
       basemap: "gray-vector",
       layers: [GreenNewsLayer, GreenNews]
     });
 
     // create the MapView and reference the Map in the instance
-    var view = new MapView({
+    const view = new MapView({
       container: "viewDiv",
       map: map,
       highlightOptions: {
@@ -172,7 +172,7 @@ require([
     };
     
     // add facebook share button to popup
-    var shareFacebook = {
+    const shareFacebook = {
       title: "แชร์",
       id: "share-facebook",
       image: "images/facebook.png"
@@ -180,7 +180,7 @@ require([
     view.popup.actions.push(shareFacebook);
     
     // add twitter share button to popup
-    var shareTwitter = {
+    const shareTwitter = {
       title: "ทวิต",
       id: "share-twitter",
       image: "images/twitter.png"
@@ -189,7 +189,7 @@ require([
 
     popup.viewModel.on("trigger-action", function(event) {
       if (event.action.id === "share-facebook") {
-        var info = popup.viewModel.selectedFeature;
+        const info = popup.viewModel.selectedFeature;
         if (info === null) {
           window.open("https://www.facebook.com/sharer/sharer.php?u=" + window.location.href);
         } else {
@@ -198,7 +198,7 @@ require([
       }
 
       if(event.action.id === "share-twitter"){
-        var info = popup.viewModel.selectedFeature;
+        const info = popup.viewModel.selectedFeature;
         if (info === null) {
           window.open("https://twitter.com/intent/tweet?text=" + "แผนที่สำนักข่าวสิ่งแวดล้อม โดยชมรมนักข่าวสิ่งแวดล้อม" + "%2C&amp&url=" + window.location.href);
         } else {
@@ -209,28 +209,28 @@ require([
     });
 
     // create home button
-    var homeBtn = new Home({
+    const homeBtn = new Home({
       view: view
     });
     // add the home button
     view.ui.add(homeBtn, "top-left");
     
     // create full screen button
-    var fullscreenBtn = new Fullscreen({
+    const fullscreenBtn = new Fullscreen({
       view: view
     });
     // add full screen button
     view.ui.add(fullscreenBtn, "top-left");
 
     // ceate locate button
-    var locateBtn = new Locate({
+    const locateBtn = new Locate({
       view: view
     });
     // add the locate button
     view.ui.add(locateBtn, "bottom-left");
 
     // create layerList
-    var layerList = new LayerList({
+    const layerList = new LayerList({
       view: view,
       listItemCreatedFunction: function (event) {
         const item = event.item;
@@ -256,7 +256,7 @@ require([
     view.ui.add(layerListExpand, "top-left");
 
     // create basemap toggle
-    var toggle = new BasemapToggle({
+    const toggle = new BasemapToggle({
       view: view,
       nextBasemap: "hybrid" 
     });
@@ -268,7 +268,7 @@ require([
     view.ui.add(toggle, "bottom-right");
 
     // Create a time slider 
-    var timeSlider = new TimeSlider({
+    const timeSlider = new TimeSlider({
       container: "timeSlider",
       mode: "cumulative-from-start",
       disabled: false
@@ -293,7 +293,7 @@ require([
       };
     });
 
-    var timeExpand = new Expand({
+    const timeExpand = new Expand({
       expandIconClass: "esri-icon-sliders-horizontal",
       expandTooltip: "กรองข่าวตามช่วงเวลา",
       view: view,
@@ -303,7 +303,7 @@ require([
     });
     view.ui.add(timeExpand, "top-left");
 
-    var searchWidget = new Search({
+    const searchWidget = new Search({
       view: view,
       allPlaceholder: "ค้นหาข่าว",
       includeDefaultSources: false,
@@ -324,7 +324,7 @@ require([
       ]
     });
 
-    var searchExpand = new Expand({
+    const searchExpand = new Expand({
       expandIconClass: "esri-icon-search",
       expandTooltip: "ค้นหาข่าว",
       view: view,
@@ -334,17 +334,14 @@ require([
     });
     view.ui.add(searchExpand, "top-left");
 
-    expandHandle1 = watchUtils.watch(timeExpand, "expanded", function(newValue){
-      if (newValue === true) {
-        GreenNews.visible = false;
-        GreenNewsLayer.visible = true;
-        }
-      else {
-        GreenNews.visible = true;
-        GreenNewsLayer.visible = false;
+    reactiveUtils.watch(
+      () => timeExpand.expanded,
+      (isExpanded) => {
+        GreenNewsLayer.visible = isExpanded;
+        GreenNews.visible = !isExpanded;
       }
-    });
-
+     );
+    
     // responsive widgets
     view.watch("widthBreakpoint", function(newValue) {
       if (newValue === "xsmall") {
@@ -376,10 +373,10 @@ require([
 
     view.when(function () {
       // https://developers.arcgis.com/javascript/latest/api-reference/esri-core-urlUtils.html#urlToObject
-      var urlObject = urlUtils.urlToObject(document.location.href);
+      const urlObject = urlUtils.urlToObject(document.location.href);
 
-      var loc = window.location.href;
-      var dir = loc.substring(0, loc.lastIndexOf('/'));
+      const loc = window.location.href;
+      const dir = loc.substring(0, loc.lastIndexOf('/'));
 
       if (urlObject.query) {
         queryFeatures(urlObject.query.id);
@@ -400,7 +397,7 @@ require([
           outFields: ["*"]
         })
         .then(function (response) {
-          var textDate = new Date(response.features[0].attributes.DATE);
+          const textDate = new Date(response.features[0].attributes.DATE);
           view.popup.open({
             title: response.features[0].attributes.TITLE,
             content: response.features[0].attributes.CATEGORY + " (" +textDate.toLocaleDateString() + ")" +
